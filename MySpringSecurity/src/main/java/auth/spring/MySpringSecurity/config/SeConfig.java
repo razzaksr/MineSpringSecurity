@@ -39,8 +39,8 @@ public class SeConfig extends WebSecurityConfigurerAdapter
 	protected void configure(HttpSecurity http) throws Exception {
 		// TODO Auto-generated method stub
 		// without security even default "user" and generated password
-		//http.authorizeRequests().anyRequest().permitAll();
-		//http.csrf().disable();// for post request 
+		http.authorizeRequests().anyRequest().permitAll();
+		http.csrf().disable();// for post request 
 		
 		
 		// with login form basic and inmemory authentication
@@ -52,10 +52,10 @@ public class SeConfig extends WebSecurityConfigurerAdapter
 		*/
 		
 		// db login
-		http.authorizeRequests().anyRequest().authenticated();
+		/*http.authorizeRequests().anyRequest().authenticated();
 		http.csrf().disable();// for post request 
 		http.httpBasic();
-		http.formLogin();
+		http.formLogin();*/
 	}
 	
 }
