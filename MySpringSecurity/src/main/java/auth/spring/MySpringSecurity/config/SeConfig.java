@@ -3,6 +3,7 @@ package auth.spring.MySpringSecurity.config;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.http.HttpMethod;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
@@ -47,7 +48,7 @@ public class SeConfig extends WebSecurityConfigurerAdapter
 		return new BCryptPasswordEncoder();
 	}
 	
-//	jwt failed
+	//jwt failed
 //	@Bean
 //	@Override
 //	public AuthenticationManager authenticationManagerBean() throws Exception {
@@ -64,28 +65,35 @@ public class SeConfig extends WebSecurityConfigurerAdapter
 		
 		
 		// with login form basic and inmemory authentication
-		/*
+		
 		http.authorizeRequests().anyRequest().authenticated();
 		http.csrf().disable();// for post request 
 		http.httpBasic();
 		http.formLogin();
-		*/
+		
 		
 		
 		// db login
-		http.authorizeRequests().anyRequest().authenticated();
-		http.csrf().disable();// for post request 
-		http.httpBasic();
-		http.formLogin();
-		
+//		http.authorizeRequests().anyRequest().authenticated();
+//		http.csrf().disable();// for post request 
+//		http.httpBasic();
+//		http.formLogin();
 		
 		// jwt for react
 		// but its failed to implement
 //		http.sessionManagement().sessionCreationPolicy(SessionCreationPolicy.STATELESS).
 //		and().exceptionHandling()
 //		.authenticationEntryPoint(api).and()
-//		.authorizeRequests().anyRequest().authenticated();
+//		.authorizeRequests()
+//		.antMatchers(HttpMethod.OPTIONS,"/**").permitAll().anyRequest().authenticated();
 //		http.addFilterBefore(new JWTAuthenticationFilter(serv, helper),
+//				UsernamePasswordAuthenticationFilter.class);
+		
+//		http.sessionManagement().sessionCreationPolicy(SessionCreationPolicy.STATELESS).and().exceptionHandling()
+//		.authenticationEntryPoint(api).and()
+//		.authorizeRequests((request) -> request.antMatchers("/auth/**").permitAll()
+//				.antMatchers(HttpMethod.OPTIONS, "/**").permitAll().anyRequest().authenticated())
+//		.addFilterBefore(new JWTAuthenticationFilter(serv, helper),
 //				UsernamePasswordAuthenticationFilter.class);
 //
 //		http.csrf().disable().cors().and().headers().frameOptions().disable();
@@ -93,11 +101,11 @@ public class SeConfig extends WebSecurityConfigurerAdapter
 
 	
 	// jwt failed
-//	@Override
-//	public void configure(WebSecurity web) throws Exception {
-//		// TODO Auto-generated method stub
-//		web.ignoring().antMatchers("/");
-//	    web.ignoring().antMatchers("/auth/**");
-//	}
+	@Override
+	public void configure(WebSecurity web) throws Exception {
+		// TODO Auto-generated method stub
+		//web.ignoring().antMatchers("/");
+	    web.ignoring().antMatchers("/auth/**");
+	}
 	
 }
