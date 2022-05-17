@@ -26,11 +26,11 @@ public class SeConfig extends WebSecurityConfigurerAdapter
 	UserService serv;
 	
 	// jwt failed
-//	@Autowired
-//	JWTTokenHelper helper;
-//	
-//	@Autowired
-//	APIAuthenticationEntryPoint api;
+	@Autowired
+	JWTTokenHelper helper;
+	
+	@Autowired
+	APIAuthenticationEntryPoint api;
 	
 	@Override
 	protected void configure(AuthenticationManagerBuilder auth) throws Exception {
@@ -49,12 +49,12 @@ public class SeConfig extends WebSecurityConfigurerAdapter
 	}
 	
 	//jwt failed
-//	@Bean
-//	@Override
-//	public AuthenticationManager authenticationManagerBean() throws Exception {
-//		// TODO Auto-generated method stub
-//		return super.authenticationManagerBean();
-//	}
+	@Bean
+	@Override
+	public AuthenticationManager authenticationManagerBean() throws Exception {
+		// TODO Auto-generated method stub
+		return super.authenticationManagerBean();
+	}
 
 	@Override
 	protected void configure(HttpSecurity http) throws Exception {
@@ -66,10 +66,10 @@ public class SeConfig extends WebSecurityConfigurerAdapter
 		
 		// with login form basic and inmemory authentication
 		
-		http.authorizeRequests().anyRequest().authenticated();
-		http.csrf().disable();// for post request 
-		http.httpBasic();
-		http.formLogin();
+//		http.authorizeRequests().anyRequest().authenticated();
+//		http.csrf().disable();// for post request 
+//		http.httpBasic();
+//		http.formLogin();
 		
 		
 		
@@ -89,23 +89,23 @@ public class SeConfig extends WebSecurityConfigurerAdapter
 //		http.addFilterBefore(new JWTAuthenticationFilter(serv, helper),
 //				UsernamePasswordAuthenticationFilter.class);
 		
-//		http.sessionManagement().sessionCreationPolicy(SessionCreationPolicy.STATELESS).and().exceptionHandling()
-//		.authenticationEntryPoint(api).and()
-//		.authorizeRequests((request) -> request.antMatchers("/auth/**").permitAll()
-//				.antMatchers(HttpMethod.OPTIONS, "/**").permitAll().anyRequest().authenticated())
-//		.addFilterBefore(new JWTAuthenticationFilter(serv, helper),
-//				UsernamePasswordAuthenticationFilter.class);
-//
-//		http.csrf().disable().cors().and().headers().frameOptions().disable();
+		http.sessionManagement().sessionCreationPolicy(SessionCreationPolicy.STATELESS).and().exceptionHandling()
+		.authenticationEntryPoint(api).and()
+		.authorizeRequests((request) -> request.antMatchers("/auth/**").permitAll()
+				.antMatchers(HttpMethod.OPTIONS, "/**").permitAll().anyRequest().authenticated())
+		.addFilterBefore(new JWTAuthenticationFilter(serv, helper),
+				UsernamePasswordAuthenticationFilter.class);
+
+		http.csrf().disable().cors().and().headers().frameOptions().disable();
 	}
 
 	
 	// jwt failed
-	@Override
-	public void configure(WebSecurity web) throws Exception {
-		// TODO Auto-generated method stub
-		//web.ignoring().antMatchers("/");
-	    web.ignoring().antMatchers("/auth/**");
-	}
+//	@Override
+//	public void configure(WebSecurity web) throws Exception {
+//		// TODO Auto-generated method stub
+//		//web.ignoring().antMatchers("/");
+//	    web.ignoring().antMatchers("/auth/**");
+//	}
 	
 }

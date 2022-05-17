@@ -30,52 +30,52 @@ import auth.spring.MySpringSecurity.resps.ResponseUserDetails;
 @CrossOrigin(origins="http://localhost:3000")
 public class AuthenticationController {
 	
-	@PostMapping("/")
-	public String readingHeader(@RequestHeader(name = "user") String user,@RequestHeader(name = "pass") String pass)
-	{
-		System.out.println(user+" "+pass);
-		return user+" and "+pass+" received";
-	}
+//	@PostMapping("/")
+//	public String readingHeader(@RequestHeader(name = "user") String user,@RequestHeader(name = "pass") String pass)
+//	{
+//		System.out.println(user+" "+pass);
+//		return user+" and "+pass+" received";
+//	}
 
-//	@Autowired
-//	private AuthenticationManager authenticationManager;
-//
-//	@Autowired
-//	JWTTokenHelper jWTTokenHelper;
-//	
-//	@Autowired
-//	private UserDetailsService userDetailsService;
-//
-//	@PostMapping("/login")
-//	public ResponseEntity<?> login(@RequestBody AuthenticateByRequest authenticationRequest) throws InvalidKeySpecException, NoSuchAlgorithmException {
-//
-//		final Authentication authentication = authenticationManager.authenticate(new UsernamePasswordAuthenticationToken(
-//				authenticationRequest.getUsername(), authenticationRequest.getPassword()));
-//		
-//		SecurityContextHolder.getContext().setAuthentication(authentication);
-//		
-//		User user=(User)authentication.getPrincipal();
-//		String jwtToken=jWTTokenHelper.generateToken(user.getUsername());
-//		
-//		LoginResponse response=new LoginResponse();
-//		response.setToken(jwtToken);
-//		
-//
-//		return ResponseEntity.ok(response);
-//	}
-//	
-//	@GetMapping("/userinfo")
-//	public ResponseEntity<?> getUserInfo(Principal user){
-//		
-//		System.out.println("Auth get mapping called "+user);
-//		
-//		User userObj=(User) userDetailsService.loadUserByUsername(user.getName());
-//		
-//		ResponseUserDetails userInfo=new ResponseUserDetails();
-//		userInfo.setFullname(userObj.getFullname());
-//		userInfo.setUserName(userObj.getUsername());
-//		
-//		
-//		return ResponseEntity.ok(userInfo);
-//	}
+	@Autowired
+	private AuthenticationManager authenticationManager;
+
+	@Autowired
+	JWTTokenHelper jWTTokenHelper;
+	
+	@Autowired
+	private UserDetailsService userDetailsService;
+
+	@PostMapping("/login")
+	public ResponseEntity<?> login(@RequestBody AuthenticateByRequest authenticationRequest) throws InvalidKeySpecException, NoSuchAlgorithmException {
+
+		final Authentication authentication = authenticationManager.authenticate(new UsernamePasswordAuthenticationToken(
+				authenticationRequest.getUsername(), authenticationRequest.getPassword()));
+		
+		SecurityContextHolder.getContext().setAuthentication(authentication);
+		
+		User user=(User)authentication.getPrincipal();
+		String jwtToken=jWTTokenHelper.generateToken(user.getUsername());
+		
+		LoginResponse response=new LoginResponse();
+		response.setToken(jwtToken);
+		
+
+		return ResponseEntity.ok(response);
+	}
+	
+	@GetMapping("/userinfo")
+	public ResponseEntity<?> getUserInfo(Principal user){
+		
+		System.out.println("Auth get mapping called "+user);
+		
+		User userObj=(User) userDetailsService.loadUserByUsername(user.getName());
+		
+		ResponseUserDetails userInfo=new ResponseUserDetails();
+		userInfo.setFullname(userObj.getFullname());
+		userInfo.setUserName(userObj.getUsername());
+		
+		
+		return ResponseEntity.ok(userInfo);
+	}
 }

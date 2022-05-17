@@ -14,7 +14,7 @@ import io.jsonwebtoken.Claims;
 import io.jsonwebtoken.Jwts;
 import io.jsonwebtoken.SignatureAlgorithm;
 
-//@Component
+@Component
 public class JWTTokenHelper {
 	
 	
@@ -113,6 +113,7 @@ public class JWTTokenHelper {
       
         String authHeader = getAuthHeaderFromHeader(request);
         if ( authHeader != null && authHeader.startsWith("Bearer ")) {
+        	//System.out.println(authHeader);
             return authHeader.substring(7);
         }
 
